@@ -25,12 +25,11 @@ public class jgTest {
         while (line!=null){
 
             List<String> items = Arrays.asList(line.split(" "));
-                String test = "knoten";
-                if (items.get(0) == test){
+                if (items.get(0).equals("knoten")){
                     graph.addVertex(items.get(1));
                     System.out.println("ein Knoten");
                 }
-                if (items.get(0) == "kante"){
+                else if (items.get(0).equals("kante")){
                     DefaultWeightedEdge tempEdge = graph.getEdge(items.get(1), items.get(2));
 
                     if(items.get(3) != null){
@@ -40,6 +39,6 @@ public class jgTest {
 
             line = reader.readLine();
         }
-
+    System.out.println("ende");
     }
 }
