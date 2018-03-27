@@ -1,3 +1,4 @@
+import org.jgrapht.Graph;
 import org.jgrapht.WeightedGraph;
 import org.jgrapht.graph.*;
 
@@ -10,18 +11,18 @@ import java.util.List;
 import java.util.Scanner;
 
 
-@SuppressWarnings("Duplicates")
+//@SuppressWarnings("Duplicates")
 
 public class GraphParser {
 
     private Scanner scanner = new Scanner(System.in);
 
-    public void parse() throws Exception{
+    public Graph parse(String fileName) throws Exception{
         System.out.println("Graphart eingeben: %n 1 Ungerichteter und ungewerteter Graph %n 2 Gewichteter Graph %n 3 Gerichteter und gewichteter Graph %n");
 
         int userIn = scanner.nextInt();
 
-        File fileDir = new File("C:/FH/ti_exercises/src/main/resources/graphen/Dijkstra.txt");
+        File fileDir = new File("C:/FH/ti_exercises/src/main/resources/graphen/"+fileName);
 
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(
@@ -29,15 +30,14 @@ public class GraphParser {
 
         switch (userIn) {
             case 1:
-                einfacherGraph(reader);
-                break;
+                return einfacherGraph(reader);
             case 2:
-                gewichteterGraph(reader);
-                break;
+                return gewichteterGraph(reader);
             case 3:
-                gewichteterGerichteterGraph(reader);
-                break;
+                return gewichteterGerichteterGraph(reader);
         }
+
+        return null;
     }
 
     public SimpleGraph einfacherGraph(BufferedReader reader) throws Exception{
@@ -85,10 +85,12 @@ public class GraphParser {
             if (items.get(0).equals("knoten")) {
                 graph.addVertex(items.get(1));
             } else if (items.get(0).equals("kante")) {
-                DefaultWeightedEdge tempEdge = graph.getEdge(items.get(1), items.get(2));
+
+                DefaultWeightedEdge tempEdge = graph.addEdge(items.get(1), items.get(2));
+
 
                 if(items.get(3) != null){
-                    graph.setEdgeWeight(tempEdge, Integer.parseInt(items.get(3)));
+                    graph.setEdgeWeight(tempEdge, Double.parseDouble(items.get(3)));
                 }
             }
 
@@ -112,12 +114,12 @@ public class GraphParser {
             if (items.get(0).equals("knoten")) {
                 graph.addVertex(items.get(1));
             } else if (items.get(0).equals("kante")) {
-                DefaultWeightedEdge tempEdge = graph.getEdge(items.get(1), items.get(2));
-                DefaultWeightedEdge tempEdge2 = graph.getEdge(items.get(2), items.get(1));
+                DefaultWeightedEdge tempEdge = graph.addEdge(items.get(1), items.get(2));
+                DefaultWeightedEdge tempEdge2 = graph.addEdge(items.get(2), items.get(1));
 
-                if(items.get(3) != null){
-                    graph.setEdgeWeight(tempEdge, Integer.parseInt(items.get(3)));
-                    graph.setEdgeWeight(tempEdge2, Integer.parseInt(items.get(4)));
+                if(items.get(3) != null && items.get(4) != null){
+                    graph.setEdgeWeight(tempEdge, Double.parseDouble(items.get(3)));
+                    graph.setEdgeWeight(tempEdge2, Double.parseDouble(items.get(4)));
                 }
             }
 
