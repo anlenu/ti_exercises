@@ -46,9 +46,6 @@ public class jgTest {
            new File(targetDirectory).mkdirs();
            exporter.export(new FileWriter(targetDirectory + "initial-graph.dot"), parsedGraph);
 
-           MutableGraph g = Parser.read(getClass().getResourceAsStream("src/main/resources/output/graph/initial-graph.dot"));
-           Graphviz.fromGraph(g).width(700).render(Format.PNG).toFile(new File("src/main/resources/output/graph/example/ex4-1.png"));
-
             while (true) { Thread.sleep(2000); }
 
        } catch (Exception e) {
