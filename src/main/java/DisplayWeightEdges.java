@@ -1,6 +1,6 @@
 import org.jgrapht.graph.DefaultWeightedEdge;
 
-public class DisplayWeightEdgle extends DefaultWeightedEdge{
+public class DisplayWeightEdges extends DefaultWeightedEdge{
 
     @Override
     public String toString() {

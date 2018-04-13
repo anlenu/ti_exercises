@@ -18,7 +18,7 @@ public class GraphParser {
     private Scanner scanner = new Scanner(System.in);
 
     public Graph parse(String fileName) throws Exception{
-        System.out.println("Graphart eingeben: %n 1 Ungerichteter und ungewerteter Graph %n 2 Gewichteter Graph %n 3 Gerichteter und gewichteter Graph %n");
+        System.out.printf("Graphart eingeben: %n 1 Ungerichteter und ungewerteter Graph %n 2 Gewichteter Graph %n 3 Gerichteter und gewichteter Graph %n");
 
         int userIn = scanner.nextInt();
 
@@ -41,9 +41,7 @@ public class GraphParser {
     }
 
     public SimpleGraph einfacherGraph(BufferedReader reader) throws Exception{
-        /*SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> graph =
-                new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>
-                        (DefaultWeightedEdge.class);*/
+
         SimpleGraph<String, DefaultEdge> graph =
                 new SimpleGraph<String, DefaultEdge>
                         (DefaultEdge.class);
@@ -58,23 +56,20 @@ public class GraphParser {
                 graph.addVertex(items.get(1));
             }
             else if (items.get(0).equals("kante")){
-                DefaultEdge tempEdge = graph.getEdge(items.get(1), items.get(2));
+                graph.addEdge(items.get(1), items.get(2));
             }
 
             line = reader.readLine();
         }
-        System.out.println("ende");
-
         return graph;
     }
 
+
     public WeightedGraph gewichteterGraph(BufferedReader reader) throws Exception {
-         /*SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> graph =
-                new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>
-                        (DefaultWeightedEdge.class);*/
-        SimpleWeightedGraph<String, DefaultWeightedEdge> graph =
-                new SimpleWeightedGraph<String, DefaultWeightedEdge>
-                        (DefaultWeightedEdge.class);
+
+        SimpleWeightedGraph<String, DisplayWeightEdges> graph =
+                new SimpleWeightedGraph<String, DisplayWeightEdges>
+                        (DisplayWeightEdges.class);
 
         String line = reader.readLine();
 
@@ -86,7 +81,7 @@ public class GraphParser {
                 graph.addVertex(items.get(1));
             } else if (items.get(0).equals("kante")) {
 
-                DefaultWeightedEdge tempEdge = graph.addEdge(items.get(1), items.get(2));
+                DisplayWeightEdges tempEdge = graph.addEdge(items.get(1), items.get(2));
 
 
                 if(items.get(3) != null){
@@ -101,10 +96,10 @@ public class GraphParser {
         return graph;
     }
 
-    public SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> gewichteterGerichteterGraph(BufferedReader reader) throws Exception{
-        SimpleDirectedWeightedGraph<String, DefaultWeightedEdge> graph =
-                new SimpleDirectedWeightedGraph<String, DefaultWeightedEdge>
-                        (DefaultWeightedEdge.class);
+    public SimpleDirectedWeightedGraph<String, DisplayWeightEdges> gewichteterGerichteterGraph(BufferedReader reader) throws Exception{
+        SimpleDirectedWeightedGraph<String, DisplayWeightEdges> graph =
+                new SimpleDirectedWeightedGraph<String, DisplayWeightEdges>
+                        (DisplayWeightEdges.class);
         String line = reader.readLine();
 
         while (line != null) {
@@ -114,8 +109,8 @@ public class GraphParser {
             if (items.get(0).equals("knoten")) {
                 graph.addVertex(items.get(1));
             } else if (items.get(0).equals("kante")) {
-                DefaultWeightedEdge tempEdge = graph.addEdge(items.get(1), items.get(2));
-                DefaultWeightedEdge tempEdge2 = graph.addEdge(items.get(2), items.get(1));
+                DisplayWeightEdges tempEdge = graph.addEdge(items.get(1), items.get(2));
+                DisplayWeightEdges tempEdge2 = graph.addEdge(items.get(2), items.get(1));
 
                 if(items.get(3) != null && items.get(4) != null){
                     graph.setEdgeWeight(tempEdge, Double.parseDouble(items.get(3)));
